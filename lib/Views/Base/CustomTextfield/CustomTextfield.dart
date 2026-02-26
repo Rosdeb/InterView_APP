@@ -143,7 +143,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: widget.borderColor ??
                 (isDark
                     ? AppColors.DarkThemeText.withValues(alpha: 0.70)
-                    : AppColors.Yellow.withValues(alpha: 0.70)),
+                    : AppColors.Green.withValues(alpha: 0.70)),
             width: 0.8,
           ),
         ),

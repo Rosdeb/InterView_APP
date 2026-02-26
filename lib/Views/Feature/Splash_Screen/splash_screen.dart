@@ -1,11 +1,29 @@
 import 'dart:ui';
+import 'package:app_interview/Controller/NetworkService/networkservice.dart';
+import 'package:app_interview/Utils/Token_Services/token_services.dart';
 import 'package:app_interview/Views/Feature/Auth/Login_screen/login_screen.dart';
 import 'package:app_interview/Views/Feature/Splash_Screen/widgets/glassBottomCard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    initializeApp();
+  }
+  Future<void> initializeApp()async{
+    await TokenService().init();
+    Get.put(NetworkController(),permanent: true);
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +36,9 @@ class SplashScreen extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFC7EABB),
-                  Color(0xFFF4F0E4),
-                  Color(0xFFC7EABB),
+                  Color(0xFF84B179),
+                  Color(0xFFA2CB8B),
+                  Color(0xFFE8F5BD),
                 ],
                 stops: [0.1, 0.5, 0.9],
               ),
@@ -58,16 +76,16 @@ class SplashScreen extends StatelessWidget {
           ),
 
           const Positioned(
-            top: 120,
+            top: 80,
             left: 0,
             right: 0,
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                'Welcome to back',
+                'Welcome back!',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 26,
+                  fontSize: 30,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 2,
                 ),
@@ -92,5 +110,4 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,5 +1,8 @@
 import 'dart:ui';
+import 'package:app_interview/Views/Base/Ios_effect/iosTapEffect.dart';
 import 'package:flutter/material.dart';
+
+import '../../../Base/AppText/appText.dart';
 
 class GlassBottomCard extends StatelessWidget {
   final String badge;
@@ -9,8 +12,8 @@ class GlassBottomCard extends StatelessWidget {
 
   const GlassBottomCard({
     super.key,
-    this.badge = 'YOUR STORY AWAITS',
-    this.title = 'Bring your\nstories to\nlife',
+    this.badge = 'GET START',
+    this.title = 'Start exploring',
     this.subtitle = 'Every great adventure begins\nwith a single word.',
     required this.onTap,
   });
@@ -41,7 +44,7 @@ class GlassBottomCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Badge
+
                       Row(
                         children: [
                           const Icon(Icons.menu_book_rounded, color: Colors.white, size: 16),
@@ -58,8 +61,8 @@ class GlassBottomCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 12),
-                      // Title
-                      Text(
+
+                      AppText(
                         title,
                         style: const TextStyle(
                           color: Colors.white,
@@ -84,7 +87,7 @@ class GlassBottomCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 // Glass Arrow Button
-                GestureDetector(
+                IosTapEffect(
                   onTap: onTap,
                   child: ClipOval(
                     child: BackdropFilter(

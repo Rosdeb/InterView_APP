@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AppConstants{
   //-------------- base url set here ---------------------//
 
-  static const String BASE_URL="http://72.60.178.71:7070";
+  static const String BASE_URL="https://fakestoreapi.com";
   //static const String BASE_URL="https://preferred-lie-solaris-designation.trycloudflare.com";
   //static const String BASE_URL="https://dimension-upper-bikini-kelkoo.trycloudflare.com";
   static String get APP_NAME => dotenv.env['APP_NAME'] ?? 'DefaultAppName';

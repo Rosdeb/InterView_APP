@@ -121,12 +121,12 @@ class _LoginScreenState extends State<LoginScreen> {
           controller: _signInController.nameController,
           hintText: "Enter name",
           prefixIcon: AppIcons.mailbox,
-          prefixIconColor: AppColors.Yellow,
+          prefixIconColor: AppColors.Green,
           filColor: Colors.grey.withValues(alpha: 0.15),
         ),
         const SizedBox(height: 16),
         CustomTextField(
-          prefixIconColor: AppColors.Yellow,
+          prefixIconColor: AppColors.Green,
           controller: _signInController.passwordController,
           hintText: "Enter email",
           isPassword: true,
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Checkbox(
         value: value,
         onChanged: _signInController.toggleAccepted,
-        activeColor: AppColors.Yellow,
+        activeColor: AppColors.Green,
         checkColor: Colors.white,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         visualDensity: VisualDensity.compact,
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: AppText(
               "Privacy Policy",
               fontSize: isTablet ? 13 : 11,
-              color: AppColors.Yellow,
+              color: AppColors.Green1,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: AppText(
         "Forgot Password?",
         fontSize: isTablet ? 13 : 11,
-        color: AppColors.Yellow,
+        color: AppColors.Green1,
         fontWeight: FontWeight.w500,
       ),
     );
@@ -213,16 +213,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // ==================== Login Button ====================
   Widget _buildLoginButton(bool isTablate) {
-    return Obx(
-          () => GradientButton(
+    return Obx(() => GradientButton(
         text: "Log in",
         height: isTablate ? 65 :52,
         isLoading: _signInController.isLoading.value,
         onTap: () async {
           HapticFeedback.lightImpact();
+          //----> validation check when name or passwrod are empty ----->
+          if (_signInController.nameController.text.trim().isEmpty ||
+              _signInController.passwordController.text.trim().isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please enter your name and password'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            return;
+          }
+
           await _signInController.loginUser(
-            _signInController.nameController.text,
-            _signInController.passwordController.text,
+           context: context,
+           name: _signInController.nameController.text.toString(),
+            password: _signInController.passwordController.text.toString(),
           );
         },
       ),
