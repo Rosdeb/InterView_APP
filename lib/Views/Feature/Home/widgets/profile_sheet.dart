@@ -1,13 +1,13 @@
-// Views/Feature/Home/widgets/profile_sheet.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Controller/Auth/User_Controller/user_controller.dart';
 import '../../../../Models/user_model/user_model.dart';
 import '../../../Base/AppText/appText.dart';
 
+/// Bottom sheet displaying user profile information and sign out option.
 class ProfileSheet extends StatelessWidget {
   final UserModel user;
+
   const ProfileSheet({required this.user, super.key});
 
   @override
@@ -21,13 +21,14 @@ class ProfileSheet extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: EdgeInsets.fromLTRB(
-        24, 12, 24,
+        24,
+        12,
+        24,
         MediaQuery.of(context).padding.bottom + 24,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Handle
           Container(
             width: 36,
             height: 4,
@@ -39,8 +40,6 @@ class ProfileSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-
-          // Avatar
           CircleAvatar(
             radius: 36,
             backgroundColor: const Color(0xFFFF6B00),
@@ -54,7 +53,6 @@ class ProfileSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-
           AppText(
             user.fullName,
             style: TextStyle(
@@ -73,7 +71,6 @@ class ProfileSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-
           _InfoRow(icon: Icons.email_outlined, text: user.email, isDark: isDark),
           _InfoRow(icon: Icons.phone_outlined, text: user.phone, isDark: isDark),
           _InfoRow(
@@ -81,10 +78,7 @@ class ProfileSheet extends StatelessWidget {
             text: '${user.street}, ${user.city} ${user.zipcode}',
             isDark: isDark,
           ),
-
           const SizedBox(height: 24),
-
-          // Logout
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -103,8 +97,11 @@ class ProfileSheet extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.logout_rounded,
-                      color: Color(0xFFFF3B30), size: 18),
+                  Icon(
+                    Icons.logout_rounded,
+                    color: Color(0xFFFF3B30),
+                    size: 18,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Sign Out',
@@ -125,6 +122,7 @@ class ProfileSheet extends StatelessWidget {
   }
 }
 
+/// Info row widget displaying an icon and text label.
 class _InfoRow extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -142,16 +140,22 @@ class _InfoRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Icon(icon,
-              size: 18,
-              color: isDark ? const Color(0xFF8E8E93) : const Color(0xFF6C6C70)),
+          Icon(
+            icon,
+            size: 18,
+            color: isDark
+                ? const Color(0xFF8E8E93)
+                : const Color(0xFF6C6C70),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: AppText(
               text,
               style: TextStyle(
                 fontSize: 14,
-                color: isDark ? const Color(0xFFAEAEB2) : const Color(0xFF3C3C43),
+                color: isDark
+                    ? const Color(0xFFAEAEB2)
+                    : const Color(0xFF3C3C43),
               ),
             ),
           ),

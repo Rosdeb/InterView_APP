@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+
+/// Expandable product description with read more/less toggle.
 class ExpandableDescription extends StatefulWidget {
   final String text;
   final bool isDark;
@@ -11,23 +12,21 @@ class ExpandableDescription extends StatefulWidget {
   });
 
   @override
-  State<ExpandableDescription> createState() =>
-      _ExpandableDescriptionState();
+  State<ExpandableDescription> createState() => _ExpandableDescriptionState();
 }
 
 class _ExpandableDescriptionState extends State<ExpandableDescription>
     with SingleTickerProviderStateMixin {
-  RxBool _expanded = false.obs;
+  bool _expanded = false;
   late final AnimationController _anim;
-  late final Animation<double> _heightFactor;
 
   @override
   void initState() {
     super.initState();
     _anim = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
-    _heightFactor =
-        CurvedAnimation(parent: _anim, curve: Curves.easeInOutCubic);
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 
   @override
@@ -38,8 +37,8 @@ class _ExpandableDescriptionState extends State<ExpandableDescription>
 
   void _toggle() {
     HapticFeedback.selectionClick();
-     _expanded.value = !_expanded.value;
-    if (_expanded.value) {
+    _expanded = !_expanded;
+    if (_expanded) {
       _anim.forward();
     } else {
       _anim.reverse();
@@ -51,45 +50,46 @@ class _ExpandableDescriptionState extends State<ExpandableDescription>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       Obx(()=>  AnimatedCrossFade(
-         duration: const Duration(milliseconds: 300),
-         crossFadeState: _expanded.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-         firstChild: Text(
-           widget.text,
-           maxLines: 3,
-           overflow: TextOverflow.ellipsis,
-           style: TextStyle(
-             fontSize: 14,
-             height: 1.65,
-             color: widget.isDark ? const Color(0xFFAEAEB2) : const Color(0xFF4A4A4A),
-           ),
-         ),
-         secondChild: Text(
-           widget.text,
-           style: TextStyle(
-             fontSize: 14,
-             height: 1.65,
-             color: widget.isDark ? const Color(0xFFAEAEB2) : const Color(0xFF4A4A4A),
-           ),
-         ),
-       ),),
-
-
+        AnimatedCrossFade(
+          duration: const Duration(milliseconds: 300),
+          crossFadeState: _expanded
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          firstChild: Text(
+            widget.text,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.65,
+              color: widget.isDark
+                  ? const Color(0xFFAEAEB2)
+                  : const Color(0xFF4A4A4A),
+            ),
+          ),
+          secondChild: Text(
+            widget.text,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.65,
+              color: widget.isDark
+                  ? const Color(0xFFAEAEB2)
+                  : const Color(0xFF4A4A4A),
+            ),
+          ),
+        ),
         const SizedBox(height: 8),
-
-
-        Obx(()=> GestureDetector(
+        GestureDetector(
           onTap: _toggle,
           child: Text(
-            _expanded.value ? 'Read less ↑' : 'Read more ↓',
+            _expanded ? 'Read less ↑' : 'Read more ↓',
             style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w700,
               color: Color(0xFFFF6B00),
             ),
           ),
-        )),
-
+        ),
       ],
     );
   }

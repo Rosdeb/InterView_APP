@@ -1,15 +1,16 @@
-// Views/Feature/Home/widgets/home_search_bar.dart
-
+import 'package:app_interview/Controller/ProductController/product_controller.dart';
 import 'package:app_interview/Views/Base/CustomTextfield/CustomTextfield.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../Models/user_model/user_model.dart';
-import '../home_screen.dart';
 import 'home_constant.dart';
 import 'profile_sheet.dart';
 
+/// Search bar widget with search input and user avatar.
+/// Displays at the bottom of the collapsible header.
 class HomeSearchBar extends StatelessWidget {
   final bool isDark;
-  final bool collapsed; // true when banner is mostly hidden
+  final bool collapsed;
   final UserModel? user;
   final TextEditingController searchController;
 
@@ -23,6 +24,8 @@ class HomeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProductController>();
+
     return Container(
       color: isDark ? const Color(0xFF1C1C1E) : const Color(0xFFF2F2F7),
       padding: const EdgeInsets.symmetric(
@@ -31,7 +34,6 @@ class HomeSearchBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // ── Search field ─────────────────────────────────────────────
           Expanded(
             child: Container(
               height: kSearchH,
@@ -56,9 +58,11 @@ class HomeSearchBar extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: CustomTextField(
-                        borderColor: Colors.transparent,
-                        hintText: "..search",
-                        controller: searchController)
+                      borderColor: Colors.transparent,
+                      hintText: '..search',
+                      onChanged: controller.onSearchChanged,
+                      controller: searchController,
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(right: 8),
@@ -74,8 +78,6 @@ class HomeSearchBar extends StatelessWidget {
               ),
             ),
           ),
-
-          // ── Avatar (only when collapsed) ──────────────────────────────
           if (collapsed && user != null) ...[
             const SizedBox(width: 10),
             GestureDetector(

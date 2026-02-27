@@ -22,8 +22,8 @@ class HeroImage extends StatelessWidget {
       padding:const  EdgeInsets.fromLTRB(40, 80, 40, 30),
       child: ConstrainedBox(
         constraints: const BoxConstraints(
-          minHeight: 200,   // set your minimum height
-          minWidth: 200,    // set your minimum width
+          minHeight: 200,
+          minWidth: 200,
         ),
         child: Hero(
           tag: heroTag ?? 'product_$productId',
@@ -33,9 +33,7 @@ class HeroImage extends StatelessWidget {
             errorWidget: (_, __, ___) => Icon(
               Icons.image_not_supported_outlined,
               size: 60,
-              color: isDark
-                  ? const Color(0xFF3A3A3C)
-                  : const Color(0xFFD1D1D6),
+              color: isDark ? const Color(0xFF3A3A3C) : const Color(0xFFD1D1D6),
             ),
             placeholder: (_, __) => const Center(
               child: CupertinoActivityIndicator(

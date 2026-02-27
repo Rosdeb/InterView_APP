@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../../../Controller/ProductController/product_controller.dart';
 import 'error_view.dart';
 
+/// Displays a list of products for a specific category tab.
 class ProductTabPage extends StatefulWidget {
   final int tabIndex;
   final ProductController productCtrl;
@@ -20,8 +21,8 @@ class ProductTabPage extends StatefulWidget {
   State<ProductTabPage> createState() => _ProductTabPageState();
 }
 
-class _ProductTabPageState extends State<ProductTabPage> with AutomaticKeepAliveClientMixin {
-
+class _ProductTabPageState extends State<ProductTabPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -30,8 +31,9 @@ class _ProductTabPageState extends State<ProductTabPage> with AutomaticKeepAlive
     super.build(context);
 
     return Obx(() {
-      final state    = widget.productCtrl.loadState.value;
-      final products = widget.productCtrl.productsForTab(widget.tabIndex);
+      final state = widget.productCtrl.loadState.value;
+      final products =
+          widget.productCtrl.filteredProductsForTab(widget.tabIndex);
 
       if (state == LoadState.loading && products.isEmpty) {
         return const Center(
@@ -50,7 +52,7 @@ class _ProductTabPageState extends State<ProductTabPage> with AutomaticKeepAlive
         onRefresh: widget.productCtrl.refresh,
         color: const Color(0xFFFF6B00),
         backgroundColor:
-        widget.isDark ? const Color(0xFF2C2C2E) : Colors.white,
+            widget.isDark ? const Color(0xFF2C2C2E) : Colors.white,
         displacement: 16,
         child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(),

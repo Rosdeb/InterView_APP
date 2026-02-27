@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+/// Monitors network connectivity and shows status notifications.
 class NetworkController extends GetxController {
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription _subscription;
   RxBool isOnline = true.obs;
 
-  // Add this key to show default Flutter SnackBars anywhere in the app
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
 
   @override
   void onInit() {
@@ -21,26 +21,16 @@ class NetworkController extends GetxController {
 
   void _startMonitoring() {
     _subscription = _connectivity.onConnectivityChanged.listen((result) async {
-      bool previousStatus = isOnline.value;
-      bool connected = false;
-
-      if (result != ConnectivityResult.none) {
-        try {
-          final lookup = await InternetAddress.lookup('google.com');
-          connected = lookup.isNotEmpty && lookup[0].rawAddress.isNotEmpty;
-        } catch (_) {
-          connected = false;
-        }
-      }
+      final previousStatus = isOnline.value;
+      final connected = !result.contains(ConnectivityResult.none)
+          ? await _verifyInternetAccess()
+          : false;
 
       isOnline.value = connected;
 
       if (previousStatus != connected) {
         if (!connected) {
-          _showSnackBar(
-            'No Internet Connection',
-            background: Colors.red.shade400,
-          );
+          _showSnackBar('No Internet Connection', background: Colors.red.shade400);
         } else {
           _showSnackBar(
             'Back Online',
@@ -52,18 +42,24 @@ class NetworkController extends GetxController {
     });
   }
 
+  Future<bool> _verifyInternetAccess() async {
+    try {
+      final lookup = await InternetAddress.lookup('google.com');
+      return lookup.isNotEmpty && lookup[0].rawAddress.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
+
   void _showSnackBar(
-      String message, {
-        Color? background,
-        Duration duration = const Duration(days: 1),
-      }) {
+    String message, {
+    Color? background,
+    Duration duration = const Duration(days: 1),
+  }) {
     scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
     scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
+        content: Text(message, style: const TextStyle(color: Colors.white)),
         backgroundColor: background,
         duration: duration,
         behavior: SnackBarBehavior.floating,
@@ -71,7 +67,11 @@ class NetworkController extends GetxController {
     );
   }
 
-  void showAppMessage(String message, {Color? background, Duration? duration}) {
+  void showAppMessage(
+    String message, {
+    Color? background,
+    Duration? duration,
+  }) {
     _showSnackBar(
       message,
       background: background ?? Colors.blueGrey.shade700,

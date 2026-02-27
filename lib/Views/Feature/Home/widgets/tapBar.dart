@@ -1,9 +1,8 @@
-// Views/Feature/Home/widgets/tab_bar_delegate.dart
-
 import 'package:flutter/material.dart';
 import '../../../../Controller/ProductController/product_controller.dart';
 import 'home_constant.dart';
 
+/// Sliver delegate for the sticky category tab bar.
 class HomeTabBarDelegate extends SliverPersistentHeaderDelegate {
   final TabController tabController;
   final bool isDark;
@@ -33,15 +32,14 @@ class HomeTabBarDelegate extends SliverPersistentHeaderDelegate {
             width: 0.5,
           ),
         ),
-        // Shadow appears only when list content scrolls behind the tab bar
         boxShadow: overlapsContent
             ? [
-          BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ]
+                BoxShadow(
+                  color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ]
             : null,
       ),
       child: TabBar(

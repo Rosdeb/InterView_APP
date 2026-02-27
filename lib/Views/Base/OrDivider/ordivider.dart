@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../utils/AppColor/app_colors.dart';
 import '../AppText/appText.dart';
 
+/// Divider widget with text in the middle.
 class OrDivider extends StatelessWidget {
   final String text;
   final Color? lineColor;
@@ -13,7 +13,7 @@ class OrDivider extends StatelessWidget {
 
   const OrDivider({
     super.key,
-    this.text = "OR Sign up with",
+    this.text = 'OR Sign up with',
     this.lineColor,
     this.textColor,
     this.thickness = 1.0,

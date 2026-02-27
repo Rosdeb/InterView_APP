@@ -4,7 +4,7 @@ import '../../../../Models/user_model/user_model.dart';
 import 'banner.dart';
 import 'home_constant.dart';
 
-
+/// Sliver header delegate that manages the collapsible banner and search bar.
 class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   final double minExtent;
@@ -22,7 +22,6 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
     required this.searchController,
   });
 
-  // 0.0 = fully expanded, 1.0 = fully collapsed
   double _progress(double shrinkOffset) =>
       (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
 
@@ -36,8 +35,6 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // ── Banner: fades out as header collapses ─────────────────────
-          // bottom: kHeaderMin keeps it above the search bar zone
           Positioned(
             top: 0,
             left: 0,
@@ -52,8 +49,6 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
           ),
-
-          // ── Search bar: always visible at bottom of header ────────────
           Positioned(
             bottom: 0,
             left: 0,

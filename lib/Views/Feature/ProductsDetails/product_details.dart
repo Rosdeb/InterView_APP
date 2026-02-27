@@ -1,4 +1,3 @@
-
 import 'package:app_interview/Controller/ProductController/product_controller.dart';
 import 'package:app_interview/Views/Base/AppText/appText.dart';
 import 'package:app_interview/Views/Base/Ios_effect/iosTapEffect.dart';
@@ -60,6 +59,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> with SingleTi
   @override
   void dispose() {
     _enterAnim.dispose();
+    controller.wishlisted.value = false;
     super.dispose();
   }
 
@@ -100,13 +100,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> with SingleTi
                   ? const Color(0xFF636366)
                   : const Color(0xFFAEAEB2)),
           const SizedBox(height: 16),
-          Obx((){
-            return AppText("${controller.error}" ?? 'Something went wrong',
-                style: TextStyle(
-                  color: isDark
-                      ? const Color(0xFF8E8E93)
-                      : const Color(0xFF6C6C70),
-                ));
+          Obx(() {
+            return AppText(
+              controller.error.isEmpty ? 'Something went wrong' : controller.error.value,
+              style: TextStyle(
+                color: isDark
+                    ? const Color(0xFF8E8E93)
+                    : const Color(0xFF6C6C70),
+              ),
+            );
           }),
 
           const SizedBox(height: 20),
@@ -183,8 +185,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> with SingleTi
                 ),
               ),
             ),
-
-
 
             SliverToBoxAdapter(
               child: Container(
@@ -282,45 +282,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> with SingleTi
               ),
             ),
 
-
             SliverToBoxAdapter(child: SizedBox(height: 20 + bottomPad)),
 
             SliverToBoxAdapter(child: StickyCartBar(isDark: isDark, bottomPad: bottomPad)),
 
             SliverToBoxAdapter(child: SizedBox(height: 100 + bottomPad)),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class _BackButton extends StatelessWidget {
-  final bool isDark;
-  const _BackButton({required this.isDark});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.lightImpact();
-        Navigator.pop(context);
-      },
-      child: Container(
-        width: 40,
-        height: 40,
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: isDark
-              ? Colors.white.withOpacity(0.12)
-              : Colors.black.withOpacity(0.07),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          size: 16,
-          color: isDark ? Colors.white : const Color(0xFF1A1A1A),
         ),
       ),
     );

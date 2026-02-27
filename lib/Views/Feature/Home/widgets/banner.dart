@@ -4,6 +4,8 @@ import '../../../../Models/user_model/user_model.dart';
 import 'home_constant.dart';
 import 'profile_sheet.dart';
 
+/// Banner section displayed at the top of the home screen header.
+/// Shows greeting, hot deals pill, and user avatar.
 class HomeBanner extends StatelessWidget {
   final bool isDark;
   final double topPad;
@@ -34,7 +36,6 @@ class HomeBanner extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.hardEdge,
           children: [
-
             Positioned(
               top: topPad - 10,
               right: -30,
@@ -47,7 +48,6 @@ class HomeBanner extends StatelessWidget {
                 ),
               ),
             ),
-
             Positioned(
               top: topPad + 12,
               left: 18,
@@ -65,7 +65,6 @@ class HomeBanner extends StatelessWidget {
   }
 }
 
-
 class _BannerContent extends StatelessWidget {
   final bool isDark;
   final UserModel? user;
@@ -73,7 +72,6 @@ class _BannerContent extends StatelessWidget {
   const _BannerContent({
     required this.isDark,
     required this.user,
-    super.key,
   });
 
   @override
@@ -83,7 +81,6 @@ class _BannerContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-
           Row(
             children: [
               const _Pill(label: '🔥 Hot Deals'),
@@ -106,10 +103,7 @@ class _BannerContent extends StatelessWidget {
                 ),
             ],
           ),
-
           const SizedBox(height: 10),
-
-          // ── Greeting ─────────────────────────────────────────────────
           AppText(
             user != null ? 'Hello, ${user!.firstName}! 👋' : 'Welcome! 👋',
             maxLines: 1,
@@ -121,10 +115,7 @@ class _BannerContent extends StatelessWidget {
                   : const Color(0xFF6C6C70),
             ),
           ),
-
           const SizedBox(height: 4),
-
-          // ── Title ─────────────────────────────────────────────────────
           AppText(
             "Today's Best Deals",
             maxLines: 1,
@@ -151,9 +142,9 @@ class _BannerContent extends StatelessWidget {
   }
 }
 
-// ── Small reusable pill chip ───────────────────────────────────────────────
 class _Pill extends StatelessWidget {
   final String label;
+
   const _Pill({required this.label});
 
   @override
