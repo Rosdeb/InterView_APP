@@ -20,8 +20,8 @@ class _BottomMenuWrappersState extends State<BottomMenuWrappers> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    CardScreen(),
-    HomeScreen(), // placeholder until you have the real page
+    HomeScreen(),
+    HomeScreen(),
     HomeScreen(),
   ];
 
