@@ -84,6 +84,23 @@ kTabBarH    = 46.0    // Tab bar height
 
 ## 🏗️ Project Structure
 
+### Architecture
+This project follows a **custom Flutter app structure** designed for scalability and maintainability. The architecture separates concerns into distinct layers:
+
+```
+📦 Custom Structure by @Rosdeb
+├── 🎯 Controller/     → Business logic & state management (GetX)
+├── 📊 Models/         → Data models & JSON serialization
+├── 🎨 Views/          → UI screens & reusable widgets
+├── 🛠️ Utils/          → Constants, colors, icons, themes
+├── 🔧 Services/       → External services & API calls
+├── 📁 Helpers/        → Navigation & utility helpers
+└── 🚀 main.dart       → App entry point & dependency injection
+```
+
+> 📌 **Learn more about this structure:** [Flutter_App_Structure](https://github.com/Rosdeb/Flutter_App_Structure)
+
+### Detailed Structure
 ```
 lib/
 ├── Controller/           # Business logic & state management
