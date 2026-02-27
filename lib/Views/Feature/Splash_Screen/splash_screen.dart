@@ -22,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> initializeApp()async{
     await TokenService().init();
     Get.put(NetworkController(),permanent: true);
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 end: Alignment.bottomRight,
                 colors: [
                   Color(0xFF84B179),
-                  Color(0xFFA2CB8B),
                   Color(0xFFE8F5BD),
+                  Color(0xFFC7EABB),
                 ],
                 stops: [0.1, 0.5, 0.9],
               ),

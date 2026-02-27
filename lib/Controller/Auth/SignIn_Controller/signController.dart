@@ -2,12 +2,14 @@
 import 'dart:convert';
 import 'package:app_interview/Utils/Logger/logger.dart';
 import 'package:app_interview/Utils/Token_Services/token_services.dart';
+import 'package:app_interview/Views/Bottom_nav/bottom_menu_wrapper.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../Utils/AppConstant/app_contants.dart';
+import '../../NetworkService/networkservice.dart';
 
 
 class SingInController extends GetxController {
@@ -27,16 +29,14 @@ class SingInController extends GetxController {
     accepted.value = value ?? false;
   }
 
-  void selectTab(int index) {
-    selectedIndex.value = index;
-  }
 
-  Future<bool> hasInternetConnection() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    return connectivityResult != ConnectivityResult.none;
-  }
+  Future<void> loginUser({required BuildContext context,String? name, String? password}) async {
 
-  Future<bool> loginUser({required BuildContext context,String? name, String? password}) async {
+    final networkController = Get.find<NetworkController>();
+
+    if (!networkController.isOnline.value) {
+      throw Exception('No internet connection');
+    }
 
     final url = "${AppConstants.BASE_URL}/auth/login";
     isLoading.value = true;
@@ -63,19 +63,22 @@ class SingInController extends GetxController {
         _showSnackBar(context, 'Login successful! Welcome back 👋', Colors.green);
 
         if(context.mounted){
-
+          Get.offAll(BottomMenuWrappers(), transition: Transition.cupertino);
         }
-        return true;
+        return;
       } else if (response.statusCode == 400) {
+        isLoading.value = false;
         Logger.log("Invalid credentials");
-        return false;
+        return;
       } else {
+        isLoading.value = false;
         Logger.log("Server error");
-        return false;
+        return;
       }
     } catch (e) {
+      isLoading.value = false;
       Logger.log("Exception: $e");
-      return false;
+      return;
     } finally {
       isLoading.value = false;
     }
