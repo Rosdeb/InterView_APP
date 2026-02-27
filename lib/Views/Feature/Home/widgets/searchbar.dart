@@ -55,7 +55,10 @@ class HomeSearchBar extends StatelessWidget {
                       size: 20, color: Color(0xFF8E8E93)),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: CustomTextField(controller: searchController)
+                    child: CustomTextField(
+                        borderColor: Colors.transparent,
+                        hintText: "..search",
+                        controller: searchController)
                   ),
                   Container(
                     margin: const EdgeInsets.only(right: 8),
