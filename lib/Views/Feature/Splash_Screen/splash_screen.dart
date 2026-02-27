@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:app_interview/Controller/NetworkService/networkservice.dart';
 import 'package:app_interview/Utils/Token_Services/token_services.dart';
+import 'package:app_interview/Views/Bottom_nav/bottom_menu_wrapper.dart';
 import 'package:app_interview/Views/Feature/Auth/Login_screen/login_screen.dart';
 import 'package:app_interview/Views/Feature/Splash_Screen/widgets/glassBottomCard.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initializeApp();
+    //_startApp();
   }
+
+  // Future<void> _startApp() async{
+  //   await Future.delayed(const Duration(milliseconds:900 ));
+  //   await TokenService().init();
+  //   final token = TokenService().getToken();
+  //   if (token != null && token.isNotEmpty){
+  //     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => BottomMenuWrappers()), (Route<dynamic> route) => false,);
+  //   }else{
+  //     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()), (Route<dynamic> route) => false,);
+  //     }
+  //   }
+
   Future<void> initializeApp()async{
     await TokenService().init();
     Get.put(NetworkController(),permanent: true);
