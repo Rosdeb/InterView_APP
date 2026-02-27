@@ -11,6 +11,7 @@ A modern, cross-platform e-commerce application built with Flutter, featuring pr
 - **User Authentication** - Login/Logout with token persistence
 - **Product Details** - View detailed product information
 - **Responsive UI** - Smooth animations and adaptive layouts
+- **iOS-Optimized Design** - SF Pro typography, haptic feedback, Cupertino interactions
 
 ---
 
