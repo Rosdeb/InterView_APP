@@ -1,10 +1,8 @@
-import 'package:app_interview/Views/Base/Ios_effect/iosTapEffect.dart';
+import 'package:app_interview/Utils/Logger/logger.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 
 import '../../../../Controller/FullScreenImageController/fullScreen_Image_Controller.dart';
 import '../FullScreenImage/full_screen_image.dart';
@@ -26,14 +24,14 @@ class HeroImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String tag = heroTag ?? 'product_$productId';
-    return IosTapEffect(
+    return GestureDetector(
       onTap: (){
-        Get.to(() => FullScreenImageViewer(heroTag: tag, imageUrl: imageUrl,),
-          binding: BindingsBuilder(() {
-            Get.put(FullScreenImageController());
-          }),
-        );
+        Logger.log("tap full screen ");
 
+        Get.to(() => FullScreenImageViewer(
+            heroTag: tag,
+            imageUrl: imageUrl,
+          ));
       },
       child: Container(
         padding:const  EdgeInsets.fromLTRB(40, 80, 40, 30),

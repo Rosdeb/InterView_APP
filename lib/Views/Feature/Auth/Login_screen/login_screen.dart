@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
         CustomTextField(
           prefixIconColor: AppColors.Green,
           controller: _signInController.passwordController,
-          hintText: "Enter email",
+          hintText: "Enter password",
           isPassword: true,
           prefixIcon: AppIcons.lock,
           filColor: Colors.grey.withValues(alpha: 0.15),
